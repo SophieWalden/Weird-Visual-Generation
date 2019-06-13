@@ -28,21 +28,26 @@ pygame.display.set_caption("Name")
 
 class Cell():
     def __init__(self, x, y, j, i):
+
+        #Setting up cords and height/width
         self.x, self.y = x, y
         self.width, self.height = 30, 30
-        #self.color = (j*4, i*4, i*2+j*2)
-        h = str(int(j/5)) + str(int(i/5)) + str(int(j/5)) + "F" + str(int(j/5)) + str(int(i/5))
-        self.color = tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
         self.StartY = self.y
         self.move = False
         self.Var = j + i
+        #Setting up Color
+        h = str(int(j/5)) + str(int(i/5)) + str(int(j/5)) + "F" + str(int(j/5)) + str(int(i/5))
+        self.color = tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+    
 
     def draw(self):
+        #Drawing each rect
         pygame.draw.rect(gameDisplay, self.color, (self.x, self.y, self.width, self.height), 0)
 
     def update(self):
         self.draw()
-        
+
+        #Moving the rectangles
         if self.move == False:
             self.y -= 1
             if self.y < self.StartY - self.Var:
@@ -70,6 +75,7 @@ def game_loop():
                 pygame.quit()
                 sys.exit()
 
+        #Updating all tiles
         for j, row in enumerate(Cells):
             for i, tile in enumerate(row):
                 tile.update()
